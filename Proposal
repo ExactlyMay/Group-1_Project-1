@@ -1,0 +1,76 @@
+Title options: Friendly reminder
+
+Team members:
+ - Samuel Hall
+ - Parth kinariwala
+ - Michael Wilson
+ - Zekarias Solomon
+
+Project Description
+ - An app to allow friends to compare schedules to see when everyone is available to hang out and plan social events.
+
+Sketch of the Final Project
+ - See picture
+
+APIs to be used
+ - Weather APIs
+ - Eventbrite API
+ - Google Calendar or Cronofy or Kloudless
+ - Mapzen
+ - The Movie Database
+
+Rough breakdown of tasks
+ - HTML and CSS(Materialize + custom styles)
+ - Logins and join friend group
+ - Inputs for schedules, save to Firebase
+ - Visual calendar, populates blocks from Firebase
+ - Compare schedules and highlight common free times
+ - Show weather during free times
+ - Suggestions button, pull events, movies, ect from APIs
+
+A minimum viable product (MVP) is a development technique in which a new product or website is developed with sufficient features to satisfy early adopters. The final, complete set of features is only designed and developed after considering feedback from the product's initial users.
+
+# Group Do: Designing your MVP
+
+## Instructions
+* With your group, answer each of the following questions:
+  1. Who is your target audience?
+   - Working adults of all ages who have abnormal work schedules. 
+  2. What is the problem that the product will address?
+   - It's hard for friends to schedule times outside of work when everyone is free to hang out. 
+  3. What is the primary goal of the product?
+   - Organize social and personal time outside of work/class/etc.
+   - Provide suggestions for social events.
+  4. Identify and prioritize essential user stories (limit this to 3 or fewer)?
+   - As a user, I want to log in and join a group of friends.
+        LOG IN
+        - Form to create account: Username, Password, Submit button (forgot password: email, generate temp password)
+        - Store username and password as variables in firebase.
+        - Create a Login form to input username, password, and submit button.
+        - Take the user input and compare to the username and password variables. If they match, you're in, else, try again.
+        - On successful log in, display the homepage (current calendar)
+        JOIN FRIEND GROUP
+        - Form to create group: Group name, password, invite other users.
+
+
+   - User wants to visualize their personal work schedule and compare with the rest of the friend group.
+        ADD SCHEDULE 
+        - Form: Start date, start time, end date, end time, Title/description, submit.
+        - Store all of these as variables, format them using moment(). Store in Firebase.
+        - Get data from Firebase and display as blocks on the calendar. (Divide calendar into divs for 15 or 30 minute intervals. If the div time falls between the start and end time, change the background color).
+        - If Not between start time and end time, it is Free Time.
+        - Display Free Time.
+        SEE FRIENDS SCHEDULE
+        - Select other user, get data from firebase, run displaySchedule()
+   - User wants to understand when everyone has common free time and have suggestions for how to spend that time together. 
+        
+
+* Remember, your MVP should be the absolute *minimum* product that you need to pitch your idea to investors (or your classmates). Think bare essentials.
+
+* As an example, the essential features of an instagram-like application might look like:
+
+  1. As a user, I want to post pictures so that I can share my life.
+  2. As a user, I want to be able to search for other users so that I can find their list of images.
+  3. As a user, I want to be able to view other people's images so that I can keep up with what's happening in their lives. 
+
+* Things like liking photos, sending photos to friends, making instagram stories, etc are cool, but they aren't essential. They should **not** be part of the MVP.
