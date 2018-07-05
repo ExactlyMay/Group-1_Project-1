@@ -9,31 +9,8 @@
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 
-    <!-- JQWidgets -->
-    <link rel="stylesheet" href="assets/javascript/jqwidgets/styles/jqx.base.css" type="text/css" />
-    <script type="text/javascript" src="assets/javascript/scripts/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="assets/javascript/scripts/demos.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxcore.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxbuttons.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxscrollbar.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxdata.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxdate.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxscheduler.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxscheduler.api.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxdatetimeinput.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxmenu.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxcalendar.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxtooltip.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxwindow.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxcheckbox.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxlistbox.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxdropdownlist.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxnumberinput.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxradiobutton.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/jqxinput.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/globalization/globalize.js"></script>
-    <script type="text/javascript" src="assets/javascript/jqwidgets/globalization/globalize.culture.de-DE.js"></script>
-
+    <!-- FullCalendar -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css">
 
 
     <link rel="stylesheet" href="assets/css/style.css">
@@ -52,18 +29,11 @@
 
         <div class='row'>
             <div class='col m10 offset-m1 s12 calendarContent'>
-                <div id='scheduler'></div>
-                <!-- <div>
-                    this is where the calender will go
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                <div>
                     <button id="scheduleModal" class="btn">Add to your schedule</button>
-                </div> -->
+                </div>
+                <br>
+                <div id='scheduler'></div>
             </div>
         </div>
         
@@ -96,11 +66,11 @@
 
     </div>
 
-   <!--  The Modal
+    <!-- The Modal -->
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
-        <!-- <div class="modal-content">
+        <div class="modal-content">
             <span class="close">&times;</span>
             <form>
                 <fieldset id="userStartField">
@@ -119,13 +89,17 @@
             </form>
         </div>
     
-    </div> -->
+    </div>
 
 
     <!-- Javascript, jqwidgets, & jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://jqwidgets.com/public/jqwidgets/jqx-all.js"></script>
+    
     <script src="assets/javascript/dynamic.js"></script>
     <script src="assets/javascript/scheduler.js"></script>
+
+    <!-- FullCalendar -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 </body>
 </html>
