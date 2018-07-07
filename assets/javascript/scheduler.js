@@ -13,13 +13,17 @@
 
 $(document).ready(function() {
 
-    var newEvent = [{
+    var APIKey = "31cf0d281ebbf40675ce6d09d12a89dc"; 
+    var queryURL="https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + APIKey;
+
+    var eventList = [{
         title: 'All Day Event',
         start: '2018-07-05T05:00:00',
-        end: '2018-07-05T05:30:00'
+        end: '2018-07-05T05:30:00',
+        rendering: 'inverse-background'
       },
       {
-        title: 'All Day Event',
+        title: 'FREE TIME',
         start: '2018-07-05T06:00:00',
         end: '2018-07-05T06:30:00'
       }]
@@ -38,6 +42,17 @@ $(document).ready(function() {
           editable: true,
           eventLimit: true, // allow "more" link when too many events
           events: newEvent,
+          eventClick: function(calEvent, jsEvent, view) {
+
+            // This will display the weather
+            // $("#displayWeather").html(WEATHER API INFO);
+            // $.ajax({
+            //     url: queryURL,
+            //     method: "GET"
+            //   }).then(function (response) {
+            //     console.log(response); 
+        
+          }
         })
 
         $(document).on("click", "#addToSchedule", function(event) {
@@ -54,9 +69,11 @@ $(document).ready(function() {
                 end: endTime
             };
             $('#scheduler').fullCalendar('renderEvent', addedEvent);
-            // newEvent.push(addedEvent);
-            // console.log(newEvent);
-            // createCalendar(newEvent);
+            eventList.push(addedEvent);
+            // Update Firebase
+
+            // console.log(eventList);
+            // createCalendar(eventList);
             $("#userStartTime").val("");
             $("#userEndTime").val("");
             $("#userReason").val("");
@@ -64,7 +81,7 @@ $(document).ready(function() {
         }); 
     }
     
-    createCalendar(newEvent);
+    createCalendar(eventList);
 
     
   });
