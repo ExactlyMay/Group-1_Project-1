@@ -49,8 +49,7 @@ $(document).ready(function() {
               var displayWeather = $("#displayWeather");
               var location = "<h6>Location: " + response.city.name + "</h6>";
               var timeDate = "<h6>Time-Date: " + response.list[i].dt_txt + "</h6>";
-              var maxTemp = "<h6>High: " + Math.floor((response.list[i].main.temp_max - 273.15) * 1.80 + 32) + "°F</h6>";
-              var minTemp = "<h6>Low: " + Math.floor((response.list[i].main.temp_min - 273.15) * 1.80 + 32) + "°F</h6>";
+              var Temp = "<h6>Temperature: " + Math.floor((response.list[i].main.temp_max - 273.15) * 1.80 + 32) + "°F</h6>";
               var humidity = "<h6>Humidity: " + response.list[i].main.humidity + "%</h6>";
               var baseDescription = response.list[i].weather[0].description;
               var capitalDescription = baseDescription.charAt(0).toUpperCase() + baseDescription.slice(1);
@@ -59,7 +58,7 @@ $(document).ready(function() {
               icon.addClass("p1");
               icon.attr("src","http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
               displayWeather.append(icon);
-              displayWeather.append(location + timeDate + maxTemp + minTemp + humidity + weatherDescription);
+              displayWeather.append(location + timeDate + Temp + humidity + weatherDescription);
             }
           } 
         });
