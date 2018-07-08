@@ -51,3 +51,9 @@ h4 {
 #userStartField, #userEndField, #userReasonField {
     width: 90%;
 }
+
+/* Weather */
+
+img {
+    float: left;
+}
