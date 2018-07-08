@@ -18,14 +18,14 @@ $(document).ready(function() {
 
     var eventList = [{
         title: 'All Day Event',
-        start: '2018-07-05T05:00:00',
-        end: '2018-07-05T05:30:00',
-        rendering: 'inverse-background'
+        start: '2018-07-09T05:00:00',
+        end: '2018-07-09T07:30:00',
+        // rendering: 'inverse-background'
       },
       {
         title: 'FREE TIME',
-        start: '2018-07-05T06:00:00',
-        end: '2018-07-05T06:30:00'
+        start: '2018-07-10T06:00:00',
+        end: '2018-07-10T13:30:00'
       }]
 
     function createCalendar(newEvent) {
@@ -51,6 +51,60 @@ $(document).ready(function() {
             //     method: "GET"
             //   }).then(function (response) {
             //     console.log(response); 
+
+            $.ajax({
+              url: queryURL,
+              method: "GET"
+            }).then(function (response) {
+              console.log(response);
+          
+               // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
+          
+                for(var i=0;i<8;i++)
+                {
+                  //   var displayWeather=$("#displayWeather");
+                  //   var p=  $("<p>");
+                  //   p.text("Time-Date: " +response.list[i].dt_txt);
+                  //   var c=$("<p>");
+                  //   c.text("Location: " +response.city.name);
+                  //   displayWeather.append(c);
+                  //   var m=$("<p>");
+                  //   m.text("max-temprature:" + Math.floor((response.list[i].main.temp_max - 273.15) * 1.80 + 32) + "°F");
+                  //   displayWeather.append(m);
+                  //   var min=$("<p>");
+                  //   min.text("min-tempreture:"+ Math.floor((response.list[i].main.temp_min - 273.15) * 1.80 + 32) + "°F");
+                  //   displayWeather.append(min);
+                  //   var h=$("<p>");
+                  //   h.text("Humidity: " +response.list[i].main.humidity + "%");
+                  //   displayWeather.append(h);
+                  //   var s=$("<p>");
+                  //   s.text("Description: " +response.list[i].weather[0].description);
+                  //   displayWeather.append(s);
+                  //   var icon=  $("<img>");
+                  //   icon.addClass("p1");
+                  //  icon.attr("src","http://openweathermap.org/img/w/"+response.list[i].weather[0].icon+".png");
+                  //  displayWeather.append(icon);
+                  //   displayWeather.append(p);
+                  //   displayWeather.addClass("tm1");
+                  //   $(".time").append(displayWeather);
+                    var displayWeather = $("#displayWeather");
+                    // var p =  $("<p>");
+                    var location = "<h6>Location: " + response.city.name + "</h6>";
+                    var timeDate = "<h6>Time-Date: " + response.list[i].dt_txt + "</h6>";
+                    var maxTemp = "<h6>High: " + Math.floor((response.list[i].main.temp_max - 273.15) * 1.80 + 32) + "°F</h6>";
+                    var minTemp = "<h6>Low: " + Math.floor((response.list[i].main.temp_min - 273.15) * 1.80 + 32) + "°F</h6>";
+                    var humidity = "<h6>Humidity: " + response.list[i].main.humidity + "%</h6>";
+                    var baseDescription = response.list[i].weather[0].description;
+                    var capitalDescription = baseDescription.charAt(0).toUpperCase() + baseDescription.slice(1);
+                    var weatherDescription = "<h6>Description: " + capitalDescription + "</h6>";
+                    var icon=  $("<img>");
+                    icon.addClass("p1");
+                    icon.attr("src","http://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
+                    displayWeather.html(location + timeDate + maxTemp + minTemp + humidity + weatherDescription);
+                    displayWeather.prepend(icon);
+                }
+                
+            }); 
         
           }
         })

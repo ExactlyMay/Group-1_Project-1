@@ -1,6 +1,9 @@
 var APIKey = "31cf0d281ebbf40675ce6d09d12a89dc"; 
 var queryURL="https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + APIKey;
 
+
+
+
 $.ajax({
     url: queryURL,
     method: "GET"
@@ -11,8 +14,8 @@ $.ajax({
 
       for(var i=0;i<8;i++)
       {
-        //   var d=$("<div>");
-          var p=  $("#displayWeather");
+          var d=$("#displayWeather");
+          var p=  $("<p>");
           p.text("Time-Date: " +response.list[i].dt_txt);
           var h=$("<p>");
           h.text("Humidity: " +response.list[i].main.humidity);
