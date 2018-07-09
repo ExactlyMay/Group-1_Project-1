@@ -8,69 +8,154 @@
     <link rel="icon" type="image/png" href="assets/images/friend.png">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!-- FullCalendar stylesheet-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.css">
+
+
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
 </head>
 <body>
-    <div class='container'>
+    <!-- Landing page content -->
+    <div class='landingPage'>
+        <div class='container'>
 
-        <div class='row'>
-            <div class='col m10 offset-m1 s12 center-align titleContent'>
-                <h1>Friendly Reminder</h1>
-                <h4>Find time to hang out with friends</h4>
+            <div class='row'>
+                <div class='col m10 offset-m1 s12 center-align titleContent'>
+                    <h1>Friendly Reminder</h1>
+                    <h4>Find time to hang out with friends</h4>
+                </div>
             </div>
-        </div>
-      
-        <div class='row'>
-            <div class='col m5 offset-m1 s12'>
-                <h5>Create account</h5>
-                <form>
-                    <div class="input-field col m6">
-                        <label>First Name</label><br><br>
-                        <input id="firstName" type="text" class="validate">
-                    </div>
-                    <div class="input-field col m6">
-                        <label>Last Name</label><br><br>
-                        <input id="lastName" type="text" class="validate">
-                    </div>
-                    <div class="input-field col m12">
-                        <label>Username</label><br><br>
-                        <input id="createUsername" type="text" class="validate">
-                    </div>
-                    <div class="input-field col m12">
-                        <label>Password</label><br><br>
-                        <input id="createPassword" type="password" class="validate">
-                    </div>
-                    <div class="input-field col m12">
-                        <input id="createAccount" type="submit" class="validate btn">
-                    </div>
-                </form>
+        
+            <div class='row'>
+                <div class='col m5 offset-m1 s12'>
+                    <h5>Create account</h5>
+                    <form>
+                        <div class="input-field col m6">
+                            <label>First Name</label><br><br>
+                            <input id="firstName" type="text" class="validate">
+                        </div>
+                        <div class="input-field col m6">
+                            <label>Last Name</label><br><br>
+                            <input id="lastName" type="text" class="validate">
+                        </div>
+                        <div class="input-field col m12">
+                            <label>Username</label><br><br>
+                            <input id="createUsername" type="text" class="validate">
+                        </div>
+                        <div class="input-field col m12">
+                            <label>Password</label><br><br>
+                            <input id="createPassword" type="password" class="validate">
+                        </div>
+                        <div class="input-field col m12">
+                            <input id="createAccount" type="submit" class="validate btn">
+                        </div>
+                    </form>
+                </div>
+                <div class='col m5 s12'>
+                    <h5>Log in</h5>
+                    <form>
+                        <div class="input-field col m12">
+                            <label>Username</label><br><br>
+                            <input id="username" type="text" class="validate">
+                        </div>
+                        <div class="input-field col m12">
+                            <label>Password</label><br><br>
+                            <input id="password" type="password" class="validate">
+                        </div>
+                        <div class="input-field col m12">
+                            <input id="login" type="submit" class="validate btn">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class='col m5 s12'>
-                <h5>Log in</h5>
-                <form>
-                    <div class="input-field col m12">
-                        <label>Username</label><br><br>
-                        <input id="username" type="text" class="validate">
-                    </div>
-                    <div class="input-field col m12">
-                        <label>Password</label><br><br>
-                        <input id="password" type="password" class="validate">
-                    </div>
-                    <div class="input-field col m12">
-                        <input id="login" type="submit" class="validate btn">
-                    </div>
-                </form>
-            </div>
-        </div>
 
+        </div>
     </div>
+    <!-- End landing page content -->
+
+    <!-- Home page content -->
+    <div class='homePage'>
+        <div class='container'>
+
+            <div class='row'>
+                <div class='col m10 offset-m1 s12 center-align titleContent'>
+                    <h1>Friendly Reminder</h1>
+                    <h4>Find time to hang out with friends</h4>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='col m10 offset-m1 s12'>
+                    <div>
+                        <button id="scheduleModal" class="btn">Add to your schedule</button>
+                        <button id="findFreeTime" class="btn">Find free time</button>
+                        <button id="showSchedule" class="btn">Show schedule</button>
+                    </div>
+                    <br>
+                    <div id='scheduler'></div>
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class='col m5 offset-m1 s6'>
+                    <h4>Local Weather</h4>
+                    <div id="displayWeather"></div>
+                </div>
+                <div class='col m5 s6 calendarContent'>
+                    <div>
+                        this is where the movie will go
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <form>
+                    <fieldset id="userStartField">
+                        <label for="userStartTime">Start Time</label>
+                        <input id="userStartTime" type="datetime-local" class="input-field">
+                    </fieldset>
+                    <fieldset id="userEndField">
+                        <label for="userEndTime">End Time</label>
+                        <input id="userEndTime" type="datetime-local" class="input-field">
+                    </fieldset>
+                    <fieldset id="userReasonField">
+                        <label for="userReason">Reason</label>
+                        <input id="userReason" placeholder="Work, class, sleep..." type="text" class="input-field">
+                    </fieldset>
+                    <input type="submit" class="btn addToSchedule" id="addToSchedule" value="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End home page content -->
 
 
-    <!-- Javascript, jqwidgets, & jQuery -->
+    <!-- Javascript & jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://jqwidgets.com/public/jqwidgets/jqx-all.js"></script>
-    <script src="assets/javascript/app.js"></script>
+    
+    <script src="assets/javascript/dynamic.js"></script>
+    <script src="assets/javascript/scheduler.js"></script>
+    <!-- <script src="assets/javascript/weather.js"></script> -->
+
+    <!-- FullCalendar JS -->
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.js"></script>
 </body>
 </html>
