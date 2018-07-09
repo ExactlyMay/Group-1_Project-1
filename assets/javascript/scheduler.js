@@ -3,17 +3,33 @@ $(document).ready(function() {
   var weatherAPIKey = "31cf0d281ebbf40675ce6d09d12a89dc"; 
   var weatherQueryURL="https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + weatherAPIKey;
 
-  var eventList = [{
-      title: 'All Day Event',
-      start: '2018-07-09T05:00:00',
-      end: '2018-07-09T07:30:00',
-      // rendering: 'inverse-background'
-    },
+  var eventList = [
     {
-      title: 'FREE TIME',
+      title: 'Work',
+      start: '2018-07-10T10:00:00',
+      end: '2018-07-10T14:30:00'
+    }, 
+    {
+      title: 'Class',
       start: '2018-07-10T06:00:00',
-      end: '2018-07-10T13:30:00'
-    }]
+      end: '2018-07-10T10:00:00'
+    }, 
+    {
+      title: 'School',
+      start: '2018-07-09T06:00:00',
+      end: '2018-07-09T13:30:00'
+    }, 
+    {
+      title: 'Gym',
+      start: '2018-07-08T06:00:00',
+      end: '2018-07-08T13:30:00'
+    }, 
+    {
+      title: 'Some other thing',
+      start: '2018-07-09T17:00:00',
+      end: '2018-07-09T19:30:00'
+    }
+  ]
 
   function createCalendar(newEvent) {
     $(document).off("click");
@@ -31,24 +47,21 @@ $(document).ready(function() {
         var calEventEnd = calEvent.end._i;
         calEventStart = moment(calEventStart).unix();
         calEventEnd = moment(calEventEnd).unix();
-        console.log(calEventStart);
-        console.log(calEventEnd);
         // This will display the weather
         
         $.ajax({
           url: weatherQueryURL,
           method: "GET"
         }).then(function (response) {
-          console.log(response);
           var responseTime;
             // Hint: To convert from Kelvin to Fahrenheit: F = (K - 273.15) * 1.80 + 32
       
-          for(var i = 0; i < 24; i++) {
+          for(var i = 0; i < 40; i++) {
             responseTime = moment(response.list[i].dt_txt).unix();
             if (calEventStart <= responseTime && responseTime <= calEventEnd) {
               var displayWeather = $("#displayWeather");
               var location = "<h6>Location: " + response.city.name + "</h6>";
-              var timeDate = "<h6>Time-Date: " + response.list[i].dt_txt + "</h6>";
+              var timeDate = "<h6>Date & Time: " + response.list[i].dt_txt + "</h6>";
               var Temp = "<h6>Temperature: " + Math.floor((response.list[i].main.temp_max - 273.15) * 1.80 + 32) + "°F</h6>";
               var humidity = "<h6>Humidity: " + response.list[i].main.humidity + "%</h6>";
               var baseDescription = response.list[i].weather[0].description;
@@ -86,7 +99,62 @@ $(document).ready(function() {
         $("#userReason").val("");
         modal.style.display = "none";
     }); 
+
+    // Find free time
+    $(document).on("click", "#findFreeTime", function(event) {
+      event.preventDefault();
+      // Sort eventList by start time
+      function sortByKey(array, key) {
+        return array.sort(function(a, b) {
+          var x = a[key]; var y = b[key];
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+        });
+      }
+
+      sortByKey(eventList, "start");
+      console.log(eventList);
+
+      // Remove existing events from calendar
+      $('#scheduler').fullCalendar('removeEvents');
+
+      // Render new events where start time is the previous event's end time and end time is the next event's start time.
+      for (var j = 0; j < (eventList.length); j++) {
+        
+        if (j == (eventList.length - 1)) {
+          function nextDate(dayIndex) {
+            var today = new Date();
+            today.setDate(today.getDate() + (dayIndex - 1 - today.getDay() + 7) % 7 + 1);
+            return today;
+          }
+          var freeTimeEvent = {
+            title: "Free time",
+            start: eventList[j].end,
+            end: nextDate(6).toLocaleString()
+          }
+          $('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
+        }
+        else if (eventList[j].end < eventList[j + 1].start) {
+          var freeTimeEvent = {
+            title: "Free time",
+            start: eventList[j].end,
+            end: eventList[j + 1].start
+          }
+          $('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
+        }        
+      }
+    })
+
+    // Revert back to individual schedule view
+    $(document).on("click", "#showSchedule", function() {
+      event.preventDefault();
+      $('#scheduler').fullCalendar('removeEvents');
+      $('#scheduler').fullCalendar('renderEvents', eventList);
+    })
+
   }
+
+
+
   // Call the createCalendar function with the values in the event list
   createCalendar(eventList);  
 });
