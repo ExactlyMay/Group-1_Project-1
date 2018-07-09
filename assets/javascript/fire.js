@@ -67,12 +67,51 @@ var config = {
   var userData = database.ref('/users');
   
 
-function writeUserData(userId, fName, lName, pass) {
+  //apply momentjs to arrays to make them time objects compare with their .milli values  
+  function merge3(ranges) {
+    // copy and sort the array
+        var sortedRange = ranges.slice().sort(function(a, b) {
+            return a[0] > b[0];
+        }),
+            i = 0;
+
+        while(i < sortedRange.length - 1) {
+            var current = sortedRange[i],
+                next = sortedRange[i+1];
+
+            // check if there is an overlapping
+            if(current[1] >= next[0]) {
+                current[1] = Math.max(current[1], next[1]);
+                // remove next
+                sortedRange.splice(i+1, 1);
+            } else {
+                // move to next
+                i++;
+            }
+        }
+        return sortedRange;
+    };
+
+    function splitPairs(arr) {
+        var pairs = [];
+        for (var i=0 ; i<arr.length ; i+=2) {
+            if (arr[i+1] !== undefined) {
+                pairs.push ([arr[i], arr[i+1]]);
+            } else {
+                pairs.push ([arr[i]]);
+            }
+        }
+        return pairs;
+    };
+
+  function writeUserData(userId, fName, lName, pass) {
+    //if its taken dont do it and complain
     database.ref('users/' + userId).set({
         'username': userId,
         'fName': fName,
         'lName' : lName,
-        'pass': pass
+        'pass': pass,
+        'schedule': ''
     });
 }
 function createGroup(groupName, currUser) {
@@ -102,7 +141,89 @@ function joinGroup(groupName, currUser) {
         [groupName]: true
     });
 }
-  
+function loginUser(currUser,pass) {
+    // comparing current user to the database to see if it exists
+    //compares password to stored password
+    //complains if its not
+    //if successful, changes current user id to login id
+    //uses for current user for everything else
+    // moves you to home page html
+    //grabs current user schedule and populates calendar and creates eventList
+}
+
+//temp eventlist array
+var eventList = [{       
+    title: 'All Day Event',
+    start: '2018-07-05T06:00:00',
+    end: '2018-07-05T06:30:00'
+}, {
+    title: 'Work',
+    start: '2018-07-05T07:00:00',
+    end: '2018-07-05T07:30:00'
+}];
+//fullcalendar populates eventsList for me
+// function addToEventList(start,end,title) {
+//     eventList.push({
+//         title: title,
+//         start: start,
+//         end: end
+//     })
+// }
+// function momentify(time) {
+//     time.milli
+// }
+function updateUserSchedule(currUser, start,end) {
+    var currSchedule = database.ref('users/'+currUser+'/schedule');
+    
+    currSchedule.set(eventList);
+    // var mergedSchedule = merge3(localSchedule);
+    //pull the updated event list instead of pulling the new event so you can use it for adding and removing
+}
+
+//on userschedule change
+//dont need to store this. just do clientside
+//if you make a plan, push it back into the curruser schedule
+
+//someone make a dropdown bar of all a user's current groups so you can show freetime of specific group
+
+//activate on button click see above^^
+function showGroupFreeTime(groupName) {
+    var currGroupUsers = database.ref('groupUsers'/+groupName+'/members/');
+    var groupUsersList = Object.keys(currGroupUsers)
+    console.log(groupUsersList);
+    var fullGroupSchedule = [];
+
+    // var currUserGroups = database.ref('userGroups/'+currUser);
+    // var userGroupsList = Object.keys(currUserGroups)
+    
+    // console.log(userGroupsList);
+    for (var z=0;z<groupUsersList.length;z++) {
+        var currGroupSchedule = database.ref('users/'+groupUsersList[z]+'/schedule');
+        //var currUserSchedule = database.ref('users/'+currUser+'/schedule');
+        
+        for (var y=0;y<currGroupSchedule.length;y++) {
+            fullGroupSchedule.push([currGroupSchedule[y].start  ,currGroupSchedule[y].end]);
+        }
+    }
+    var finalGroupSchedule = merge3(fullGroupSchedule);
+    console.log(finalGroupSchedule);
+        
+        // Object.values(currUserSchedule)
+        // Object.values(currGroupSchedule)
+        //[]
+        //schedule will be received as an array of objects
+    
+
+
+
+
+    // for (var z=0;z<userGroupsList.length;z++) {
+    //     var currGroupSchedule = database.ref('groups/'+userGroupsList[z]+'/schedule');
+    //     var currUserSchedule = database.ref('users/'+currUser+'/schedule');
+    //     Object.values(currUserSchedule)
+    //     Object.values(currGroupSchedule)
+    // }
+}
 
   // var connectionsRef = database.ref('/connections');
   // var connectedRef = database.ref('.info/connected');
@@ -158,6 +279,7 @@ function joinGroup(groupName, currUser) {
     
     writeUserData('bob','Bob', 'Low', '234');
     joinGroup('group1', 'bob');
+    updateUserSchedule('bob');
 
 
     // window.onunload = function () {
