@@ -119,15 +119,28 @@ $(document).ready(function() {
 
       // Render new events where start time is the previous event's end time and end time is the next event's start time.
       for (var j = 0; j < (eventList.length); j++) {
-        if (eventList[j].end < eventList[j + 1].start) {
+        
+        if (j == (eventList.length - 1)) {
+          function nextDate(dayIndex) {
+            var today = new Date();
+            today.setDate(today.getDate() + (dayIndex - 1 - today.getDay() + 7) % 7 + 1);
+            return today;
+          }
+          var freeTimeEvent = {
+            title: "Free time",
+            start: eventList[j].end,
+            end: nextDate(6).toLocaleString()
+          }
+          $('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
+        }
+        else if (eventList[j].end < eventList[j + 1].start) {
           var freeTimeEvent = {
             title: "Free time",
             start: eventList[j].end,
             end: eventList[j + 1].start
           }
           $('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
-        }
-
+        }        
       }
     })
 
