@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).on("click", "#login", function() {
 
   var weatherAPIKey = "31cf0d281ebbf40675ce6d09d12a89dc"; 
   var weatherQueryURL="https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + weatherAPIKey;
