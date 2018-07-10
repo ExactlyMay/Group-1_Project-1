@@ -9,12 +9,12 @@ var btn = document.getElementById("scheduleModal");
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks the button, open the modal 
-$(document).on("click", "#scheduleModal", function() {
+$(document.body).on("click", "#scheduleModal", function() {
     modal.style.display = "block";
 })
 
 // When the user clicks on <span> (x), close the modal
-$(document).on("click", ".close", function() {
+$(document.body).on("click", ".close", function() {
     modal.style.display = "none";
 })
 
