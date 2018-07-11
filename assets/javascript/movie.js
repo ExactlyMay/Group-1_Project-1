@@ -1,5 +1,5 @@
 $("#submitMovie").on("click", function () {
-
+    $(".poster").html("");
     //getting the movie name from the main search page
     
     var settings = {
