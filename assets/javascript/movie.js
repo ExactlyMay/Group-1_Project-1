@@ -1,4 +1,4 @@
-$("#submit").on("click", function () {
+$("#submitMovie").on("click", function () {
 
     //getting the movie name from the main search page
     var movieName = $("#textarea1").val().trim();
