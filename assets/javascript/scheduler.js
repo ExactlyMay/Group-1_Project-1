@@ -3,33 +3,7 @@ $(document).on("click", "#login", function() {
   var weatherAPIKey = "31cf0d281ebbf40675ce6d09d12a89dc"; 
   var weatherQueryURL="https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + weatherAPIKey;
 
-  var eventList = [
-    {
-      title: 'Work',
-      start: '2018-07-10T10:00:00',
-      end: '2018-07-10T14:30:00'
-    }, 
-    {
-      title: 'Class',
-      start: '2018-07-10T06:00:00',
-      end: '2018-07-10T10:00:00'
-    }, 
-    {
-      title: 'School',
-      start: '2018-07-09T06:00:00',
-      end: '2018-07-09T13:30:00'
-    }, 
-    {
-      title: 'Gym',
-      start: '2018-07-08T06:00:00',
-      end: '2018-07-08T13:30:00'
-    }, 
-    {
-      title: 'Some other thing',
-      start: '2018-07-09T17:00:00',
-      end: '2018-07-09T19:30:00'
-    }
-  ]
+  var eventList = [];
 
   function createCalendar(newEvent) {
     $(document).off("click");
