@@ -2,7 +2,7 @@ $("#submitRestaurant").on("click",function()
 {
     var q= $("#textarea1").val().trim();
 
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?q="+ q +"&apikey=b13b32626d4cb71b9f846dd77d89bd03";
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?q="+ q +"&city_id=288&apikey=b13b32626d4cb71b9f846dd77d89bd03";
 
 $.ajax({
     url: queryURL,
