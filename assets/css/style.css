@@ -8,7 +8,28 @@ h4 {
 .calendarContent {
     border: solid 1px;
 }
+.th{
+    background:#fbe9e7;
 
+}
+.td{
+    color:#000000;
+
+}
+.table{
+    width: 700px;
+}
+.w1{
+    background:#fbe9e7;
+ 
+}
+.img1{
+    width: 500px;
+}
+.m1{
+    background:#fbe9e7;
+    width: 100%px;
+}
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */

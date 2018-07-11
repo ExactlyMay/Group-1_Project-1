@@ -2,7 +2,7 @@ $("#submitRestaurant").on("click",function()
 {
     var q= $("#textarea1").val().trim();
 
-    var queryURL = "https://developers.zomato.com/api/v2.1/search?q="+ q +"&apikey=b13b32626d4cb71b9f846dd77d89bd03";
+    var queryURL = "https://developers.zomato.com/api/v2.1/search?q="+ q +"&city_id=288&apikey=b13b32626d4cb71b9f846dd77d89bd03";
 
 $.ajax({
     url: queryURL,
@@ -14,12 +14,10 @@ $.ajax({
     .then(function (response) {
   console.log(response);
    
-  $("#w1").html("");
-    for(var i=0;i<5;i++)
+    for(var i=0;i<10;i++)
           {
-             var d=$("<div>"); 
-            var name=$("<p>");
-          $("#w1").append("<tr><td>" +response.restaurants[i].restaurant.name + "</td><td>" +response.restaurants[i].restaurant.location.address + "</td><td>" +response.restaurants[i].restaurant.user_rating.rating_text + "</td><td>" +response.restaurants[i].restaurant.cuisines + "</td><td>");
+           
+          $("#w1 > tbody").append("<tr><td class='td'>" +response.restaurants[i].restaurant.name + "</td><td class='td'>" +response.restaurants[i].restaurant.location.address + "</td><td class='td'>" +response.restaurants[i].restaurant.user_rating.rating_text + "</td><td class='td'>" +response.restaurants[i].restaurant.cuisines + "</td><tr>");
             
 
             // var address=$("<p>");
