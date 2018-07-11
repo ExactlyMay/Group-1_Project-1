@@ -13,7 +13,7 @@ $.ajax({
     // We store all of the retrieved data inside of an object called "response"
     .then(function (response) {
   console.log(response);
-   
+  $("#w1 > tbody").html("");
     for(var i=0;i<10;i++)
           {
            
