@@ -1,4 +1,4 @@
-$("#submit").on("click",function()
+$("#submitRestaurant").on("click",function()
 {
     var q= $("#textarea1").val().trim();
 
