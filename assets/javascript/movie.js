@@ -1,4 +1,4 @@
-$("#submitMovie").on("click", function () {
+$("#submit").on("click", function () {
 
     //getting the movie name from the main search page
     var movieName = $("#textarea1").val().trim();
@@ -23,12 +23,12 @@ $("#submitMovie").on("click", function () {
          for (var i = 0; i <= num; i++) {
            var key_first = JSON.stringify(response.results[i].key);
            var key_final = eval(key_first);
-           var newdiv = $("<div>");
+           var newdiv = $("<div><br><br>");
            //using that key we are showing youtube video
            newdiv.append(
-             "<iframe width='560' height='315' src='https://www.youtube.com/embed/" + key_final +"' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"
+             "<iframe width='280' height='220' src='https://www.youtube.com/embed/" + key_final +"' frameborder='0' allow='autoplay; encrypted-media' allowfullscreen></iframe>"
            );
-           newdiv.append("<br><br>");
+           newdiv.append("<br><br><br><br>");
            $(".poster").prepend(newdiv);
          }
        });

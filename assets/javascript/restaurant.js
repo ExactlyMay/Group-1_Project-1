@@ -14,12 +14,10 @@ $.ajax({
     .then(function (response) {
   console.log(response);
    
-  $("#w1").html("");
-    for(var i=0;i<5;i++)
+    for(var i=0;i<10;i++)
           {
-             var d=$("<div>"); 
-            var name=$("<p>");
-          $("#w1").append("<tr><td>" +response.restaurants[i].restaurant.name + "</td><td>" +response.restaurants[i].restaurant.location.address + "</td><td>" +response.restaurants[i].restaurant.user_rating.rating_text + "</td><td>" +response.restaurants[i].restaurant.cuisines + "</td><td>");
+           
+          $("#w1 > tbody").append("<tr><td class='td'>" +response.restaurants[i].restaurant.name + "</td><td class='td'>" +response.restaurants[i].restaurant.location.address + "</td><td class='td'>" +response.restaurants[i].restaurant.user_rating.rating_text + "</td><td class='td'>" +response.restaurants[i].restaurant.cuisines + "</td><tr>");
             
 
             // var address=$("<p>");
