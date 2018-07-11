@@ -10,7 +10,7 @@ $(document).on("click", "#login", function() {
     $('#scheduler').fullCalendar({
       defaultView: 'agendaWeek',
       navLinks: true, // can click day/week names to navigate views
-      editable: true,
+      editable: false,
       eventLimit: true, // allow "more" link when too many events
       events: newEvent,
       eventClick: function(calEvent, jsEvent, view) {
