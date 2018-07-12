@@ -27,9 +27,9 @@ window.onclick = function(event) {
 
 
 // Hide login/Create account, show homePage
-$("#login").on("click", function(event) {
-    event.preventDefault();
-    $(".landingPage").hide();
-    $(".homePage").show();
-})
+// $("#login").on("click", function(event) {
+//     event.preventDefault();
+//     $(".landingPage").hide();
+//     $(".homePage").show();
+// })
 
