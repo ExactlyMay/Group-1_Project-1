@@ -102,14 +102,37 @@
 
             <div class='row'>
                 <div class='col m10 offset-m1 s12'>
-                    <div>
+                    <div class='row'>
                         <button id="scheduleModal" class="btn scheduleModal">Add to your schedule</button>
                         <button id="findFreeTime" class="btn">Find free time</button>
                         <button id="showSchedule" class="btn">Show schedule</button>
+                        <!-- Dropdown Trigger -->
+                        <a class='dropdown-trigger btn' data-target='dropdown1'>Check Group Schedule</a>
+
+                        <!-- Dropdown Structure  -->
+                        <ul id='dropdown1' class='dropdown-content'>
+                            <!-- populated by userGroups -->
+                        </ul>
                     </div>
-                    <br>
-                    <div id='scheduler'></div>
+                    <form class='row'>
+                        <div class='col m4 s12'>
+                            <input id="groupToJoin" type="text">
+                        </div>    
+                        <div class='input-field col m6 s12'>
+                            <input id="joinGroup" type="submit" class="btn" value='Join Group'>
+                        </div>
+                    </form>
+                    <form class='row'>
+                        <div class='input-field col m4 s12'>
+                            <input id="newGroup" type="text">
+                        </div>
+                        <div class='col m6 s12'>
+                            <input id="createGroup" type="submit" class="btn" value='Create New Group'>
+                        </div>
+                    </form>               
                 </div>
+                <br>
+                <div id='scheduler'></div>
             </div>
 
             <div class='row'>
@@ -218,7 +241,7 @@
 
     <!-- Javascript & jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script> 
     <script src="assets/javascript/dynamic.js"></script>
     <script src="assets/javascript/scheduler.js"></script>
     <!-- <script src="assets/javascript/weather.js"></script> -->
