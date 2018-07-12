@@ -35,6 +35,7 @@ function createGroup(groupName, currUser) {
 	database.ref('userGroups/'+currUser).update({
 		[groupName]: true
 	});
+	$('#dropdown1').append('<li class=\'dropGroup\' id=\''+groupName+'\'>'+groupName+'</li>');
 }
 
 function joinGroup(groupName, currUser) {
@@ -48,6 +49,7 @@ function joinGroup(groupName, currUser) {
 	database.ref('userGroups/'+currUser).update({
 		[groupName]: true
 	});
+	$('#dropdown1').append('<li class=\'dropGroup\' id=\''+groupName+'\'>'+groupName+'</li>');
 }
 
 function updateUserSchedule(currUser) {
