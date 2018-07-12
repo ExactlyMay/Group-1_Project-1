@@ -324,36 +324,75 @@ $(document).on("click", "#login", function() {
 				// console.log($('this'));
 				console.log(this);  
 				var currGroup = this.id;
+				var groupEventsList;
+				
 				console.log(currGroup);
 				//localStorage.setItem('group', currGroup);
 				var key_Arr;
-				database.ref('/groupUsers/'+currGroup).once('value').then(function(snapshot) {
-					console.log(snapshot.val());
-					console.log(Object.keys(snapshot.val()));
-					key_Arr = Object.keys(snapshot.val());
-					// return key_Arr;
-				}).then(function(snapshot) {
-					// var groupUserList = 
-					// var users = ['qwe'];
+				var results = [];
+				database.ref('groupUsers/'+currGroup).once('value')
+				.then(groupUserSnap => {
+					var users = groupUserSnap.val();
+					var promises = [];
+					for (var user in users) {
+						var p = database.ref(`schedules/${user}`).once('value');
+						promises.push(p);
+					}
+					return Promise.all(promises)
+				})
+				.then(userSnapshots => {
+					// var results = [];
+					userSnapshots.forEach(userSnap => {
+						var data = userSnap.val();
+						results.push(data);
+					})
+					console.log(results);
+					return results;
+
+				}).then( function(snap) {
+					var localEventsList= results.map(function(obj) {
+						return Object.keys(obj).sort().map(function(key) {
+							return obj[key];
+						});
+					});
+					console.log(localEventsList);
+					groupEventsList=[].concat.apply([], localEventsList);
+					console.log(groupEventsList);
+					return groupEventsList
+				})
+				.then(function(snapFin) {
+					
 
 
-					//var key_Arr = snapshot
-					console.log(key_Arr);
-					// function getFirebaseData(key_arr) {
-					// return 
-					Promise.all(key_arr.map(key_str =>
-						database.ref('schedules/'+key_str).once('value'))
-					).then(snapshots => {
-						snapshots.reduce((result, snap) => {
-							result[snap.key] = snap.val();
-							console.log(result);
+				// database.ref('/groupUsers/'+currGroup).once('value').then(function(snapshot) {
+				// 	console.log(snapshot.val());
+				// 	console.log(Object.keys(snapshot.val()));
+				// 	key_Arr = Object.keys(snapshot.val());
+				// 	// return key_Arr;
+				// 	return snapshot;
+				// })
+				// .then(function(snapshot) {
+				// 	// var groupUserList = 
+				// 	// var users = ['qwe'];
+				// 	console.log(snapshot.val());
+
+				// 	//var key_Arr = snapshot
+				// 	console.log(key_Arr);
+				// 	// function getFirebaseData(key_arr) {
+				// 	// return 
+				// 	return Promise.all(key_arr.map(key_str =>
+				// 		database.ref('schedules/'+key_str).once('value'))
+				// 	).then(snapshots => {
+				// 		snapshots.reduce((result, snap) => {
+				// 			result[snap.key] = snap.val();
+				// 			console.log(result);
 								
-							// Find free time
-							// $(document).on("click", "#findFreeTime", function(event) {
-							// event.preventDefault();
-							// Sort eventList by start time
+				// 			// Find free time
+				// 			// $(document).on("click", "#findFreeTime", function(event) {
+				// 			// event.preventDefault();
+				// 			// Sort eventList by start time
 											
-							var groupEventList =result; 
+							// var groupEventList =result; 
 
 							function sortByKey(array, key) {
 								return array.sort(function(a, b) {
@@ -362,7 +401,7 @@ $(document).on("click", "#login", function() {
 								});
 							}
 						
-							sortByKey(groupeventList, "start");
+							sortByKey(groupEventsList, "start");
 							console.log(eventList);
 						
 							// Remove existing events from calendar
@@ -393,12 +432,14 @@ $(document).on("click", "#login", function() {
 									$('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
 								}        
 							}
-						});
+						})
+						;
+				// 		});
 
-						return result;
+				// 		return result;
 							
-					}, []);
-				});
+				// 	}, []);
+				// });
 			});                        
 		}
 
