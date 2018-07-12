@@ -67,7 +67,8 @@ $(document).on('click','#createAccount', function() {
     // Tests to see if /users/<userId> has any data. 
     function checkIfUserExists(userId) {
         if ([newUser, newPass, newFName, newLName].includes('')) {
-            console.log('Please fill out entire form');
+			console.log('Please fill out entire form');
+			$('#accountDiv').addClass('fail');
     
         }
         else {
@@ -77,14 +78,16 @@ $(document).on('click','#createAccount', function() {
 				var checker = snapshot.hasChild(userId);
 			if (checker) {
 				console.log('Username Taken');
+				$('#accountDiv').addClass('fail');
 			}
 			else {
 				console.log('New User Created');
 				writeUserData(newUser, newFName, newLName, newPass);
+				$('#accountDiv').addClass('success');
 			}
-        // }).then(function(doesExist) {
-        //     return doesExist;
-			});
+			}).catch(function (error) {
+				console.log('Failed to check for account or make account', error);
+			  });
 		}
 	}
 	  
@@ -109,8 +112,9 @@ $(document).on("click", "#login", function() {
         // }
         function checkIfUserExists(userId) {
             if ([logUser, logPass].includes('')) {
-                console.log('Please fill out entire form');
-        
+				console.log('Please fill out entire form');
+				
+				$('#logDiv').addClass('fail');
             }
             else {
             database.ref('/users').once('value').then(function(snapshot) {
@@ -131,8 +135,11 @@ $(document).on("click", "#login", function() {
 					}
 					else {
 						console.log('Wrong Username/Password');
+						$('#logDiv').addClass('fail');
 					}
 				}
+			}).catch(function (error) {
+				console.log('Failed to login', error);
 			});
 			}
         }  
@@ -144,20 +151,19 @@ $(document).on("click", "#login", function() {
 		var weatherAPIKey = "31cf0d281ebbf40675ce6d09d12a89dc";
 		var weatherQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=atlanta&appid=" + weatherAPIKey;
 
-		
-		//var eventList; old ref vvv
-		// database.ref('/users/'+localStorage.getItem("name")+'/schedule').once('value').then(function(snapshot) {
 		function getSched() {
 			database.ref('/schedules/'+localStorage.getItem("name")).once('value').then(function(snapshot) {
 
 				//eventList = snapshot.val();
-				console.log(snapshot.val(), snapshot.val);
+				// console.log(snapshot.val(), snapshot.val);
 				eventList = Object.keys(snapshot.val()).map(i => snapshot.val()[i]);
-				console.log(eventList, eventList[0]);
+				// console.log(eventList, eventList[0]);
 				$('#scheduler').fullCalendar('renderEvents', eventList);	
 
 			
-			});
+			}).catch(function (error) {
+				console.log('No schedule yet', error);
+			  });
 		}
 		getSched();
 
@@ -295,7 +301,7 @@ $(document).on("click", "#login", function() {
 				var newGroupName = $('#newGroup').val().trim();
 			
 				createGroup(newGroupName, localStorage.getItem("name"));
-				$('#newGroup').val();
+				// $('#newGroup').val();
 			});
 
 			$(document).on("click", "#joinGroup", function() {
@@ -304,7 +310,7 @@ $(document).on("click", "#login", function() {
 				var joinName = $('#groupToJoin').val().trim();
 
 				joinGroup(joinName, localStorage.getItem("name"));
-				$('#groupToJoin').val('');
+				// $('#groupToJoin').val('');
 			});
 			//grabs data to populate dropdown button
 			database.ref('/userGroups/'+localStorage.getItem("name")).once('value').then(function(snapshot) {
@@ -315,7 +321,10 @@ $(document).on("click", "#login", function() {
 				for (var i=0;i<userGroupsArray.length;i++) {
 					$('#dropdown1').append('<li class=\'dropGroup\' id=\''+userGroupsArray[i]+'\'>'+userGroupsArray[i]+'</li>');
 				}
-			});
+			}).catch(function (error) {
+				console.log('Not in groups yet', error);
+			  });
+			  
 			//gives dropdown functionality thanks to materialize
 			$('.dropdown-trigger').dropdown();
 
@@ -361,38 +370,6 @@ $(document).on("click", "#login", function() {
 					return groupEventsList
 				})
 				.then(function(snapFin) {
-					
-
-
-				// database.ref('/groupUsers/'+currGroup).once('value').then(function(snapshot) {
-				// 	console.log(snapshot.val());
-				// 	console.log(Object.keys(snapshot.val()));
-				// 	key_Arr = Object.keys(snapshot.val());
-				// 	// return key_Arr;
-				// 	return snapshot;
-				// })
-				// .then(function(snapshot) {
-				// 	// var groupUserList = 
-				// 	// var users = ['qwe'];
-				// 	console.log(snapshot.val());
-
-				// 	//var key_Arr = snapshot
-				// 	console.log(key_Arr);
-				// 	// function getFirebaseData(key_arr) {
-				// 	// return 
-				// 	return Promise.all(key_arr.map(key_str =>
-				// 		database.ref('schedules/'+key_str).once('value'))
-				// 	).then(snapshots => {
-				// 		snapshots.reduce((result, snap) => {
-				// 			result[snap.key] = snap.val();
-				// 			console.log(result);
-								
-				// 			// Find free time
-				// 			// $(document).on("click", "#findFreeTime", function(event) {
-				// 			// event.preventDefault();
-				// 			// Sort eventList by start time
-											
-							// var groupEventList =result; 
 
 							function sortByKey(array, key) {
 								return array.sort(function(a, b) {
@@ -432,14 +409,9 @@ $(document).on("click", "#login", function() {
 									$('#scheduler').fullCalendar('renderEvent', freeTimeEvent);
 								}        
 							}
-						})
-						;
-				// 		});
-
-				// 		return result;
-							
-				// 	}, []);
-				// });
+						}).catch(function (error) {
+							console.log('Can\'t merge schedules', error);
+						  });
 			});                        
 		}
 
